@@ -7,12 +7,11 @@ import android.util.Log;
  */
 
 public class DebugLog {
-    private static final String LOG_TAG = "aspectj-log";
 
     private DebugLog() {
     }
 
-    public static void log(String message) {
-        Log.d(LOG_TAG, message);
+    public static void log(String tag, String message) {
+        Log.d(tag, message);
     }
 }
