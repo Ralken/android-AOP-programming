@@ -7,14 +7,15 @@ import java.lang.annotation.Target;
 
 import cn.ralken.aspectj.internal.Interceptor;
 import cn.ralken.aspectj.internal.VoidInterceptor;
+import cn.ralken.aspectj.internal.VoidThrowable;
 
 /**
- * Created by Ralken Liao on 21/12/2017.
+ * Created by Ralken Liao
  */
 
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD})
-public @interface AttachAnalysisPoint {
+public @interface BeforeAttach {
     /**
      * Data type inside an annotation must be one of
      * byte,short,char,int,long,float,double,boolean and String,Enum,Class,annotations.
@@ -22,5 +23,6 @@ public @interface AttachAnalysisPoint {
     Class<? extends Interceptor> interceptor()
             default VoidInterceptor.class;
 
-    String tag() default "";
+    Class<? extends Throwable> thrown()
+            default VoidThrowable.class;
 }

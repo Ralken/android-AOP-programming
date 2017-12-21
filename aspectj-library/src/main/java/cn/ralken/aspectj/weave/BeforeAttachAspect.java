@@ -15,7 +15,7 @@ import cn.ralken.aspectj.internal.VoidThrowable;
  */
 
 @Aspect
-public class AttachAnalysisPointAspect {
+public class BeforeAttachAspect {
     private static final String POINTCUT_METHOD =
             "execution(@cn.ralken.aspectj.annotation.BeforeAttach * *(..))";
 
@@ -42,6 +42,10 @@ public class AttachAnalysisPointAspect {
 
         if (!intercept) {
             return joinPoint.proceed();
+        }
+
+        if (instance.onActionIntercepted()) {
+            return null;
         }
 
         if (before.thrown() != VoidThrowable.class) {

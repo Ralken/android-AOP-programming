@@ -9,14 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import cn.ralken.aspectj.DebugTrace;
+import cn.ralken.aspectj.annotation.BeforeAttach;
+import cn.ralken.aspectj.annotation.DebugTrace;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
-    @DebugTrace
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -82,11 +83,30 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            try {
+                boolean value = startActivity();
+                Toast.makeText(this, "value result: " + value, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    /**
+     * User {@link DebugTrace} annotation to monitor the method execution time for performance trace.
+     * <br>
+     * Use {@link BeforeAttach} annotation to check if user has signed-in in case clicks #startActivity button.
+     */
+    @DebugTrace
+    @BeforeAttach(interceptor = LoginInterceptor.class, thrown = NotSignInException.class)
+    public boolean startActivity() throws Exception{
+        Toast.makeText(this, "Send menu clicked..", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
 }

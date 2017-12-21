@@ -1,8 +1,20 @@
 package cn.ralken.aspectj.internal;
 
 /**
- * Created by Ralken Liao on 21/12/2017.
+ * Default implementation class that does nothing.
+ * <p>
+ * Created by Ralken Liao
  */
 
 public class VoidInterceptor implements Interceptor {
+
+    @Override
+    public boolean intercept() {
+        return false;
+    }
+
+    @Override
+    public boolean onActionIntercepted() {
+        return false;
+    }
 }

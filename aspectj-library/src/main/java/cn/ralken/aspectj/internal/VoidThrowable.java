@@ -1,8 +1,10 @@
 package cn.ralken.aspectj.internal;
 
 /**
- * Created by Ralken Liao on 21/12/2017.
+ * Default implementation class of Throwable for non-action case.
+ *
+ * Created by Ralken Liao
  */
 
-class VoidThrowable {
+public class VoidThrowable extends Throwable {
 }
