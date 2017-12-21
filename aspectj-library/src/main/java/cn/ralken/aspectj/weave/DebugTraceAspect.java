@@ -1,4 +1,4 @@
-package cn.ralken.aspectj;
+package cn.ralken.aspectj.weave;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -6,17 +6,20 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
+import cn.ralken.aspectj.internal.DebugLog;
+import cn.ralken.aspectj.internal.StopWatch;
+
 /**
  * Created by Ralken Liao on 07/12/2017.
  */
 
 @Aspect
-public class TraceAspect {
+public class DebugTraceAspect {
     private static final String POINTCUT_METHOD =
-            "execution(@cn.ralken.aspectj.DebugTrace * *(..))";
+            "execution(@cn.ralken.aspectj.annotation.DebugTrace * *(..))";
 
     private static final String POINTCUT_CONSTRUCTOR =
-            "execution(@cn.ralken.aspectj.DebugTrace *.new(..))";
+            "execution(@cn.ralken.aspectj.annotation.DebugTrace *.new(..))";
 
     @Pointcut(POINTCUT_METHOD)
     public void methodAnnotatedWithDebugTrace() {

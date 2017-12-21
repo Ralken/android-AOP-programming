@@ -1,4 +1,4 @@
-package cn.ralken.aspectj;
+package cn.ralken.aspectj.internal;
 
 import android.util.Log;
 
