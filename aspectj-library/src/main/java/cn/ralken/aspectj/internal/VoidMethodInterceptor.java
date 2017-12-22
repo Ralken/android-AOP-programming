@@ -6,7 +6,7 @@ package cn.ralken.aspectj.internal;
  * Created by Ralken Liao
  */
 
-public class VoidInterceptor implements Interceptor {
+public class VoidMethodInterceptor implements MethodInterceptor {
 
     @Override
     public boolean intercept() {

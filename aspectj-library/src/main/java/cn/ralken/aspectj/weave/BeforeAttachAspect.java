@@ -7,8 +7,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import cn.ralken.aspectj.annotation.BeforeAttach;
-import cn.ralken.aspectj.internal.Interceptor;
-import cn.ralken.aspectj.internal.VoidThrowable;
+import cn.ralken.aspectj.internal.MethodInterceptor;
 
 /**
  * Created by Ralken Liao
@@ -36,20 +35,17 @@ public class BeforeAttachAspect {
 
         BeforeAttach before = methodSignature.getMethod().getAnnotation(BeforeAttach.class);
 
-        Class<? extends Interceptor> value = before.interceptor();
-        Interceptor instance = value.newInstance();
+        Class<? extends MethodInterceptor> value = before.interceptor();
+        MethodInterceptor instance = value.newInstance();
         boolean intercept = instance.intercept();
 
         if (!intercept) {
             return joinPoint.proceed();
         }
 
+        //// FIXME: 21/12/2017 onActionIntercepted is always executed in this case.
         if (instance.onActionIntercepted()) {
             return null;
-        }
-
-        if (before.thrown() != VoidThrowable.class) {
-            throw before.thrown().newInstance();
         }
 
         return null;

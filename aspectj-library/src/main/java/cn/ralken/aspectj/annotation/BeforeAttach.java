@@ -5,9 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import cn.ralken.aspectj.internal.Interceptor;
-import cn.ralken.aspectj.internal.VoidInterceptor;
-import cn.ralken.aspectj.internal.VoidThrowable;
+import cn.ralken.aspectj.internal.MethodInterceptor;
+import cn.ralken.aspectj.internal.VoidMethodInterceptor;
 
 /**
  * Created by Ralken Liao
@@ -20,9 +19,6 @@ public @interface BeforeAttach {
      * Data type inside an annotation must be one of
      * byte,short,char,int,long,float,double,boolean and String,Enum,Class,annotations.
      */
-    Class<? extends Interceptor> interceptor()
-            default VoidInterceptor.class;
-
-    Class<? extends Throwable> thrown()
-            default VoidThrowable.class;
+    Class<? extends MethodInterceptor> interceptor()
+            default VoidMethodInterceptor.class;
 }

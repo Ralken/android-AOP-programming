@@ -4,7 +4,7 @@ package cn.ralken.aspectj.internal;
  * Created by Ralken Liao on 21/12/2017.
  */
 
-public interface Interceptor {
+public interface MethodInterceptor {
 
     /**
      * Provide the condition that tells Carver when it should work.

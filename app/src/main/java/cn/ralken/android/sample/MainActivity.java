@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity
      * Use {@link BeforeAttach} annotation to check if user has signed-in in case clicks #startActivity button.
      */
     @DebugTrace
-    @BeforeAttach(interceptor = LoginInterceptor.class, thrown = NotSignInException.class)
-    public boolean startActivity() throws Exception{
+    @BeforeAttach(interceptor = LoginMethodInterceptor.class)
+    public boolean startActivity() {
         Toast.makeText(this, "Send menu clicked..", Toast.LENGTH_SHORT).show();
         return true;
     }

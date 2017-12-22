@@ -1,12 +1,12 @@
 package cn.ralken.android.sample;
 
-import cn.ralken.aspectj.internal.Interceptor;
+import cn.ralken.aspectj.internal.MethodInterceptor;
 
 /**
  * Created by Ralken Liao
  */
 
-public class LoginInterceptor implements Interceptor {
+public class LoginMethodInterceptor implements MethodInterceptor {
 
     @Override
     public boolean intercept() {
