@@ -1,5 +1,7 @@
 package cn.ralken.android.sample;
 
+import android.widget.Toast;
+
 import cn.ralken.aspectj.internal.MethodInterceptor;
 
 /**
@@ -16,6 +18,6 @@ public class LoginMethodInterceptor implements MethodInterceptor {
 
     @Override
     public boolean onActionIntercepted() {
-        return true;
+        return false;
     }
 }

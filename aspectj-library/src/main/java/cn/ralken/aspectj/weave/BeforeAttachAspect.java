@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import cn.ralken.aspectj.annotation.BeforeAttach;
+import cn.ralken.aspectj.internal.ComponentFactory;
 import cn.ralken.aspectj.internal.MethodInterceptor;
 
 /**
@@ -33,21 +34,26 @@ public class BeforeAttachAspect {
     public Object weaveJoinPoint(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 
-        BeforeAttach before = methodSignature.getMethod().getAnnotation(BeforeAttach.class);
+        BeforeAttach attachPoint = methodSignature.getMethod().getAnnotation(BeforeAttach.class);
+        Class<? extends MethodInterceptor> clz = attachPoint.interceptor();
+        MethodInterceptor instance = ComponentFactory.createSingle(clz);
 
-        Class<? extends MethodInterceptor> value = before.interceptor();
-        MethodInterceptor instance = value.newInstance();
-        boolean intercept = instance.intercept();
-
-        if (!intercept) {
-            return joinPoint.proceed();
+        switch (attachPoint.mode()) {
+            case MODE_METHOD_END:
+                Object result = joinPoint.proceed();
+                if (instance.intercept()) {
+                    instance.onActionIntercepted();
+                }
+                return result;
+            case MODE_METHOD_START:
+            default:
+                boolean intercept = instance.intercept();
+                if (!intercept || instance.onActionIntercepted()) {
+                    return joinPoint.proceed();
+                }
+                return null;
         }
 
-        //// FIXME: 21/12/2017 onActionIntercepted is always executed in this case.
-        if (instance.onActionIntercepted()) {
-            return null;
-        }
-
-        return null;
     }
+
 }
