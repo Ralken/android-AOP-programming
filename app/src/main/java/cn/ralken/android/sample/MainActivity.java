@@ -14,6 +14,8 @@ import android.widget.Toast;
 import cn.ralken.aspectj.annotation.BeforeAttach;
 import cn.ralken.aspectj.annotation.DebugTrace;
 
+import static cn.ralken.aspectj.annotation.BeforeAttach.Mode.MODE_METHOD_END;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity
      * Use {@link BeforeAttach} annotation to check if user has signed-in in case clicks #startActivity button.
      */
     @DebugTrace
-    @BeforeAttach(interceptor = LoginMethodInterceptor.class, mode = BeforeAttach.Mode.MODE_METHOD_END)
+    @BeforeAttach(interceptor = LoginMethodInterceptor.class, mode = MODE_METHOD_END)
     public boolean startActivity() {
         Toast.makeText(this, "Send menu clicked..", Toast.LENGTH_SHORT).show();
         return true;
